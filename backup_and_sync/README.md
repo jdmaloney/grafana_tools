@@ -3,7 +3,7 @@
 ## Assumptions
 - For backup passwordless SSH is to be enabled beween host source and destination server (just needs to be one-way passwordless)
 - For syncing both Grafana instances must use the same backing database type and have it located at the same path if using sqlite3
-
+- For syncinging passwordless SSH is to be enabled between the master server and the server being synced to (one-way only needed)
 
 ## Usage
 
