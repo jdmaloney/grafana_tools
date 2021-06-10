@@ -22,6 +22,7 @@ elif [ "${db_type}" == "mysql" ]; then
 	mysqldump -u ${db_user} -p${db_password} ${db} > /tmp/${backup_file_name}
 	scp /tmp/${backup_file_name} ${destination_host}:/tmp/
 	ssh ${destination_host} "systemctl stop grafana-server && mysql -u ${db_user} -p${db_password} ${db} < /tmp/${backup_file_name} && systemctl start grafana-server"
+	rm -rf /tmp/${backup_file_name}
 elif [ "${db_type}" == "postgres" ]; then
 	echo "Postgres backend not currently supported"
 	exit 1
