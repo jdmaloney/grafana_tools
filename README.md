@@ -34,3 +34,8 @@ These scripts can be set up to:
 - Perform a restore of a Grafana backing DB following a migration or system failure
 
 On the backend this is all done by quiesing and backuping up the database that underpins Grafana itself.  Currently sqlite3 and mariadb (mysql) backing db's are supported with pgsql support hopefully landing soon.  
+
+## White Label
+This script allows you to add white-labeling to the login screen of your Grafana instance as well as the favicon and upper left corner logo.  Image files provided are examples/templates to use.  
+
+Follow instructions in the README in that folder.  You will need to re-run the bash script following a Grafana package update.   
