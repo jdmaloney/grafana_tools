@@ -6,13 +6,8 @@ fi
 
 tfile=$(mktemp /tmp/grafana.XXXXXX)
 
-## Fill in appropriate path to directory containing script & the Grafana Admin Password
-base_dir="/root/grafana-tools/ldap_sync"
-admin_password=""
-
-## Set Array of Groups by listing out; or by using the results of an ldapsearch
-#groups=($(ldapsearch -x ....))
-groups=()
+## Fill in appropriate path to directory containing script & the Grafana Admin Password & the array of groups in config file
+source ./config
 
 ## Loop over groups; make sure still in LDAP; if not delete respective team in Grafana
 for g in ${groups[@]}
