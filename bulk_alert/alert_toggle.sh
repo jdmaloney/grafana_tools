@@ -4,8 +4,7 @@ action=$1
 grouping=$2
 tag_or_id=$3
 
-user=  ## Grafana admin user
-pass=  ## Passwor for Grafana admin user
+source ./config
 
 if [ "$1" == "-h" ] || [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
 	echo "Usage: ./alert_toggle.sh [start/pause] [tag/id] [all/"name of tag"/"alert id"]"
@@ -39,7 +38,7 @@ if [ "$grouping" == "tag" ]; then
 	                        echo "Starting of Alerts Failed"
 	                fi
 		else
-			echo Invalid Argument, Valid Arguments are: start, stop
+			echo Invalid Argument, Valid Arguments are: start, pause
 		fi
 	else
 		if [ "${action}" == "pause" ]; then
@@ -69,7 +68,7 @@ if [ "$grouping" == "tag" ]; then
 	                done
 			echo ${action_success} of "${alert_count}" Started Successfully
 		else
-			echo Invalid Argument, Valid Arguments are: start, stop
+			echo Invalid Argument, Valid Arguments are: start, pause
 	        fi
 
 	fi
@@ -93,7 +92,7 @@ elif [ "$grouping" == "id" ]; then
 					echo "Alert Failed to Start"
                                 fi
                 else
-                        echo Invalid Argument, Valid Arguments are: start, stop
+                        echo Invalid Argument, Valid Arguments are: start, pause
                 fi
 else
 	echo "Invalid option, choose tag or id for second argument"
