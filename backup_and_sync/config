@@ -1,0 +1,7 @@
+destination_host=
+destination_path=
+
+## If using a mysql database fill in info:
+db_user=
+db_password=
+db=

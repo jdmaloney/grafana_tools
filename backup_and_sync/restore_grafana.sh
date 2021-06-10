@@ -3,10 +3,8 @@
 ## Source file from argument
 source_file=$1
 
-## If using a mysql database fill in info:
-db_user=
-db_password=
-db=
+## Fill in destination_host and destination_path in config file; as well as db info if applicable
+source ./config
 
 ## Get Grafana backing DB type
 db_type=$(grep "^type = " /etc/grafana/grafana.ini | cut -d' '- f 3)

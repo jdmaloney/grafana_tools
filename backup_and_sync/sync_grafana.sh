@@ -1,11 +1,7 @@
 #!/bin/bash
 
-destination_host=
-
-## If using a mysql database fill in info:
-db_user=
-db_password=
-db=
+## Fill in destination_host and db information if using mysql
+source ./config
 
 ## Get Grafana backing DB type
 db_type=$(grep "^type = " /etc/grafana/grafana.ini | cut -d' '- f 3)
