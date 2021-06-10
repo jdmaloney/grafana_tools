@@ -26,3 +26,11 @@ Syncs a list of LDAP or AD groups with Grafana teams.  This requires ldapsearch 
 This script is meant to be used for instances that have their auth integrate with LDAP or AD.  However, when generating these user accounts it is required to give them a local password.  This script gives every user it creates a unique and random 32 charachter password that is generated dynamically and not saved at any point.  This password is irrevlevant as LDAP/AD authentication will grant the user access to the Grafana instance.  
 
 This script is recommended to be run via cron at an interval to keep Grafana in sync with your auth infrastructure.  It can also be run in debug mode with the --debug flag which puts out a high verbosity log of what the script is doing.  
+
+## Backup & Sync
+These scripts can be set up to:
+- Perfom and automated backup of Grafana's backing DB information that defines alerts/folders/dashboards/users/etc.
+- Perform an automated sync of two or more Grafana instances
+- Perform a restore of a Grafana backing DB following a migration or system failure
+
+On the backend this is all done by quiesing and backuping up the database that underpins Grafana itself.  Currently sqlite3 and mariadb (mysql) backing db's are supported with pgsql support hopefully landing soon.  
