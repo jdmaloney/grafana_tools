@@ -88,8 +88,9 @@ do
 			echo "Adding User ${u} to Grafana"
 		fi
 		pretty_name=$(/usr/bin/ldapsearch -x "(uid=${u})" | grep "cn:" | cut -d' ' -f 2-)
+		email_addr=$(/usr/bin/ldapsearch -x uid=${u} mail | grep "mail:" | head -n 1 | cut -d' ' -f 2)
 		rp=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
-		cat ${base_dir}/add_user_template.json | sed "s/NewUsersNameHere/${pretty_name}/" | sed "s/NewUserIDHere/${u}/" | sed "s/RandomPasswordHere/${rp}/" > add_user.json
+		cat ${base_dir}/add_user_template.json | sed "s/NewUsersNameHere/${pretty_name}/" | sed "s/NewUserIDHere/${u}/" | sed "s/RandomPasswordHere/${rp}/" | sed "s/NewUserEmailHere/${email_addr}/"  > add_user.json
 		curl -w "%{http_code}\\n" -XPOST -u admin:${admin_password} -i http://localhost:3000/api/admin/users --data-binary @${base_dir}/add_user.json -H "Content-Type: application/json" -s
 		rm -rf add_user.json
 	fi

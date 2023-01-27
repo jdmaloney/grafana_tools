@@ -1,5 +1,6 @@
 {
   "name":"NewUsersNameHere",
+  "email":"NewUserEmailHere",
   "login":"NewUserIDHere",
   "password":"RandomPasswordHere"
 }
