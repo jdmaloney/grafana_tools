@@ -15,13 +15,13 @@ rsync -avP img/* /usr/share/grafana/public/img/
 
 cd /usr/share/grafana/public/build/
 
-files=($(grep -l "Welcome to Grafana" *.js | grep -v LICENSE | grep -v map))
+files=($(grep -l "Welcome to Grafana" *.js | grep -v LICENSE | grep -v map | grep -v backup | grep -v explore))
 
 for f in ${files[@]}
 do
-	cat ${f} | sed "s/\"LoginTitle\"\,\"Welcome\ to\ Grafana\"/\"LoginTitle\"\,\"${title}\"/" > temp.out
+	cat ${f} | sed "s/LoginTitle\=\"Welcome\ to\ Grafana\"/LoginTitle\=\"${title}\"/" > temp.out
 	mv temp.out ${f}
-	cat ${f} | sed "s/\"GetLoginSubTitle\"\,(()=>null/\"GetLoginSubTitle\"\,(()=>\"${subtitle}\"/" > temp.out
+	cat ${f} | sed "s/GetLoginSubTitle\=()=>null/GetLoginSubTitle\=()=>\"${subtitle}\"/" > temp.out
 	mv temp.out ${f}
 done
 
