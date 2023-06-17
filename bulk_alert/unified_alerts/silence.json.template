@@ -1,0 +1,14 @@
+{
+  "comment": "var_comment",
+  "createdBy": "var_name",
+  "endsAt": "var_end",
+  "matchers": [
+    {
+      "isEqual": true,
+      "isRegex": false,
+      "name": "var_type",
+      "value": "var_value"
+    }
+  ],
+  "startsAt": "var_start"
+}
