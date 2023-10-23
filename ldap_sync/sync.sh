@@ -49,17 +49,15 @@ do
 		rm -rf "${base_dir}/add_team.json"
 
 		## Add to Array
-		output=$(curl -w "%{http_code}\\n" -u admin:${admin_password} -i http://localhost:3000/api/teams/search?name="${g}" -H "Content-Type: application/json" -s)
-		team_info=$(echo ${output} | grep "totalCount" | cut -d'"' -f 7,12 | sed 's/,"/,/' | cut -c 2-)
-                teams=( "${teams[@]}" "${team_info}" )
+		team_info=$(curl -w "%{http_code}\\n" -u admin:${admin_password} -i http://localhost:3000/api/teams/search?name="${g}" -H "Content-Type: application/json" -s | grep "totalCount" | cut -d':' -f 4,7 | cut -d'"' -f 1,4 | tr -d '"')
+		teams=( "${teams[@]}" "${team_info}" )
                 team_info=""
 	else
 		if [ $1 == "--debug" ]; then
 			echo "Group ${g} exists"
 		fi
 		## Add to Array
-		output=$(curl -w "%{http_code}\\n" -u admin:${admin_password} -i http://localhost:3000/api/teams/search?name="${g}" -H "Content-Type: application/json" -s)
-		team_info=$(echo ${output} | grep "totalCount" | cut -d'"' -f 7,12 | sed 's/,"/,/' | cut -c 2-)
+		team_info=$(curl -w "%{http_code}\\n" -u admin:${admin_password} -i http://localhost:3000/api/teams/search?name="${g}" -H "Content-Type: application/json" -s | grep "totalCount" | cut -d':' -f 4,7 | cut -d'"' -f 1,4 | tr -d '"')
 		teams=( "${teams[@]}" "${team_info}" )
 		team_info=""
 	fi
