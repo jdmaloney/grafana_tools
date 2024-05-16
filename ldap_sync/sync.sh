@@ -20,8 +20,8 @@ do
 		if [ $1 == "--debug" ]; then
 			echo "Group ${g} No Longer in LDAP"
 		fi
-		id=$(curl -w "%{http_code}\\n" -u admin:${admin_password} -i http://localhost:3000/api/teams/search?name="${g}" -H "Content-Type: application/json" -s | grep "totalCount" | cut -d':' -f 4 | cut -d',' -f 1)
-		if [ -n "${id}" ]; then
+                IFS="," read -r count id <<< $(curl -w "%{http_code}\\n" -u admin:${admin_password} -i http://localhost:3000/api/teams/search?name="${g}" -H "Content-Type: application/json" -s | grep "totalCount" | sed 's/:/,/g' | cut -d',' -f 2,5)
+                if [ -n "${id}" ] && [ ${count} -ne 0 ] ; then
 			curl -w "%{http_code}\\n" -X DELETE -u admin:${admin_password} -i http://localhost:3000/api/teams/"${id}" -H "Content-Type: application/json" -s
 		fi
 	else
@@ -85,7 +85,7 @@ do
 		if [ $1 == "--debug" ]; then
 			echo "Adding User ${u} to Grafana"
 		fi
-		pretty_name=$(/usr/bin/ldapsearch -x "(uid=${u})" | grep "cn:" | cut -d' ' -f 2-)
+		pretty_name=$(/usr/bin/ldapsearch -x "(uid=${u})" | grep "cn:" | cut -d' ' -f 2- | head -n 1)
 		email_addr=$(/usr/bin/ldapsearch -x uid=${u} mail | grep "mail:" | head -n 1 | cut -d' ' -f 2)
 		rp=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 		cat ${base_dir}/add_user_template.json | sed "s/NewUsersNameHere/${pretty_name}/" | sed "s/NewUserIDHere/${u}/" | sed "s/RandomPasswordHere/${rp}/" | sed "s/NewUserEmailHere/${email_addr}/"  > add_user.json
