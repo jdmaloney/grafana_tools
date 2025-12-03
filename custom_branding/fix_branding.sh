@@ -20,9 +20,9 @@ login_light=$(ls /usr/share/grafana/public/build/static/img/ | grep g8_login_lig
 login_dark=$(ls /usr/share/grafana/public/build/static/img/ | grep g8_login_dark)
 logo=$(ls /usr/share/grafana/public/build/static/img/ | grep grafana_icon)
 
-rsync -avP img_new/g8_login_light.svg /usr/share/grafana/public/build/static/img/${login_light}
-rsync -avP img_new/g8_login_dark.svg /usr/share/grafana/public/build/static/img/${login_dark}
-rsync -avP img_new/grafana_icon.svg /usr/share/grafana/public/build/static/img/${logo}
+rsync -avP img/g8_login_light.svg /usr/share/grafana/public/build/static/img/${login_light}
+rsync -avP img/g8_login_dark.svg /usr/share/grafana/public/build/static/img/${login_dark}
+rsync -avP img/grafana_icon.svg /usr/share/grafana/public/build/static/img/${logo}
 
 
 cd /usr/share/grafana/public/build/
